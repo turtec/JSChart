@@ -1,0 +1,67 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+        <link rel="stylesheet" href="barchart.css" />
+	
+        <script>
+            // Wait for the DOM to load everything, just to be safe
+$(document).ready(function() {
+
+
+    var data = new Array(100, 150, 120, 180,100, 150, 120, 180,100, 150, 120, 180,100, 150, 120, 180,100, 150, 120, 180);
+    var bars=new Array();  
+   
+   createGraph(data, '#myChart');
+   displayGraph(0);
+   // Here be graphs
+   function createGraph(data, container) {
+      for(var i=0; i<data.length;i++){
+            var barObj = {};
+            barObj.size = data[i];
+            barObj.markup = $('<div class="bar" style="width:10px; height:30px"></div>').appendTo(container);;
+            bars.push(barObj);
+      }
+     
+   }
+   
+ 
+   
+    
+   
+   function displayGraph(i) {
+   // Changed the way we loop because of issues with $.each not resetting properly
+   
+    if (i < bars.length) {
+       
+      // Animate the height using the jQuery animate() function
+      $(bars[i].markup).animate({
+         width: bars[i].size
+      }, 800);
+      // Wait the specified time, then run the displayGraph() function again for the next bar
+      barTimer = setTimeout(function() {
+         i++;
+         displayGraph(i);
+      }, 10);
+   }
+}
+   
+
+   
+   
+});
+            
+            
+        </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        
+        <div id="myChart"></div>
+    </body>
+</html>
